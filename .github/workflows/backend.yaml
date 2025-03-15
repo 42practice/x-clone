@@ -1,0 +1,38 @@
+name: CI - Backend
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'apps/backend/**'
+  pull_request:
+    paths:
+      - 'apps/backend/**'
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+
+      - name: Setup Node.js
+        uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a
+        with:
+          node-version: 22.14.0
+          cache: 'pnpm'
+      
+      - name: Install pnpm
+        run: npm install -g pnpm@10.6.0
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint with ESLint
+        working-directory: apps/backend
+        run: pnpm run eslint
+
+      - name: format with Prettier
+        working-directory: apps/backend
+        run: pnpm run format
