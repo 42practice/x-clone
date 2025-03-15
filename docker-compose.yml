@@ -1,20 +1,20 @@
 services:
   frontend:
     build:
-      context: ./frontend
+      context: ./apps/frontend
       dockerfile: Dockerfile
     volumes:
-      - ./frontend/x-clone:/usr/src/app
+      - ./apps/frontend:/usr/src/app
       - /usr/src/app/node_modules # ホスト側の node_modules を無視
     ports:
       - "5173:5173"
     tty: true
   backend:
     build:
-      context: ./backend
+      context: ./apps/backend
       dockerfile: Dockerfile
     volumes:
-      - ./backend/x-backend:/usr/src/app
+      - ./apps/backend:/usr/src/app
       - /usr/src/app/node_modules # ホスト側の node_modules を無視
     ports:
       - '3000:3000'

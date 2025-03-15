@@ -1,0 +1,99 @@
+# swaggerバージョン宣言
+swagger: "2.0"
+
+# 基本情報
+info:
+  # バージョン表記
+  version: 1.0.0
+  # タイトル
+  title: xclone-API
+  # 説明
+  description: |
+    - x-clone用のAPI
+# リクエスト方式
+schemes:
+  - http
+  - https
+# ホスト
+host: localhost:3000
+# 基底パス
+basePath: /
+# タグ定義
+tags:
+  - name: "Tweet"
+    description: 記事に関するエンドポイント
+    externalDocs:
+      description: "AAAAAAAAAA"
+      url: "http://hogehoge"
+  - name: "User"
+    description: 書籍に関するエンドポイント
+    externalDocs:
+      description: "BBBBBBBBBB"
+      url: "http://fugafuga"
+# エンドポイント
+paths:
+  /articles:
+    get:
+      summary:
+        記事一覧を取得
+      tags:
+        - Article
+      responses:
+        200:
+          description: Hello World
+          schema:
+            type: array
+            example: [
+              {
+                id: ef304778ada8a6,
+                title: ReactNative@v0.63で追加されたPressableが地味にすごい,
+                link: https://zenn.dev/nekoniki/articles/ef304778ada8a6
+              }
+            ]
+  /articles/{id}:
+    get:
+      summary:
+        指定した記事の詳細を取得
+      tags:
+        - Article
+      responses:
+        200:
+          description: OK
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                example: ef304778ada8a6
+              author:
+                type: string
+                example: ネコニキ
+              title:
+                type: string
+                example: ReactNative@v0.63で追加されたPressableが地味にすごい
+              link:
+                type: string
+                example: https://zenn.dev/nekoniki/articles/ef304778ada8a6
+      parameters:
+        - name: id
+          in: header
+          type: string
+          required: true
+  /books/{id}:
+    delete:
+      summary:
+        指定した書籍の削除
+      tags:
+        - Book
+      produces:
+        - application/x-www-form-urlencoded
+      consumes:
+        - application/text/plain
+      responses:
+        200:
+          description: 削除完了時のレスポンス
+      parameters:
+        - name: id
+          in: header
+          type: string
+          required: true

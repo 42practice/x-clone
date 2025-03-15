@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node
 
 # 作業ディレクトリを設定
 WORKDIR /usr/src/app
@@ -7,16 +7,14 @@ WORKDIR /usr/src/app
 RUN npm install -g pnpm
 
 # package.json と lock ファイルを先にコピー（キャッシュ最適化）
-COPY ./x-clone/package.json ./
+COPY ./package.json ./
 
 # 依存関係をインストール
 RUN pnpm install
 
 # 残りのソースコードをコピー
-COPY x-clone ./
+COPY ./ ./
 
-# Vite のポートを開放
-EXPOSE 5173
+EXPOSE 3000
 
-# Vite を起動（外部からアクセスできるように --host 0.0.0.0 を指定）
 CMD ["pnpm","dev","--host"]
