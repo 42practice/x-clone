@@ -1,99 +1,214 @@
-# swaggerバージョン宣言
-swagger: "2.0"
+openapi: "3.0.3"
 
 # 基本情報
 info:
   # バージョン表記
   version: 1.0.0
   # タイトル
-  title: xclone-API
+  title: Xclone-API
   # 説明
-  description: |
-    - x-clone用のAPI
-# リクエスト方式
-schemes:
-  - http
-  - https
-# ホスト
-host: localhost:3000
-# 基底パス
-basePath: /
-# タグ定義
-tags:
-  - name: "Tweet"
-    description: 記事に関するエンドポイント
-    externalDocs:
-      description: "AAAAAAAAAA"
-      url: "http://hogehoge"
-  - name: "User"
-    description: 書籍に関するエンドポイント
-    externalDocs:
-      description: "BBBBBBBBBB"
-      url: "http://fugafuga"
+  description: 練習用Xclone-API
+# ホスト練習
+servers:
+  - url: localhost:3000/
+    description: "開発者用サーバー"
 # エンドポイント
 paths:
-  /articles:
+  /tweets:
     get:
       summary:
-        記事一覧を取得
+        全ツイート取得
       tags:
-        - Article
+        - Tweet
       responses:
         200:
-          description: Hello World
-          schema:
-            type: array
-            example: [
-              {
-                id: ef304778ada8a6,
-                title: ReactNative@v0.63で追加されたPressableが地味にすごい,
-                link: https://zenn.dev/nekoniki/articles/ef304778ada8a6
-              }
-            ]
-  /articles/{id}:
+          description: success operation
+          content:
+            application/json:
+              schema:
+                type: "array"
+                example: [
+                  {
+                    id: ef304778ada8a6,
+                    author: ネコニキ,
+                    title: ReactNative@v0.63で追加されたPressableが地味にすごい,
+                    body: ReactNative@v0.63で追加されたPressableが地味にすごい,
+                    link: https://zenn.dev/nekoniki/articles/ef304778ada8a6
+                  }
+                ]
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: "string"
+                    example: "NOT_FOUND"
+                  message:
+                    type: "string"
+                    example: "NOT_FOUND"
+  /tweets/{id}:
     get:
       summary:
-        指定した記事の詳細を取得
+        指定したtweetの詳細を取得API
       tags:
-        - Article
-      responses:
-        200:
-          description: OK
-          schema:
-            type: object
-            properties:
-              id:
-                type: string
-                example: ef304778ada8a6
-              author:
-                type: string
-                example: ネコニキ
-              title:
-                type: string
-                example: ReactNative@v0.63で追加されたPressableが地味にすごい
-              link:
-                type: string
-                example: https://zenn.dev/nekoniki/articles/ef304778ada8a6
+        - Tweet
       parameters:
         - name: id
-          in: header
-          type: string
+          in: path
           required: true
-  /books/{id}:
+          schema:
+            type: string
+      responses:
+        200:
+          description: success operation
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  id:
+                    type: string
+                    example: ef304778ada8a6
+                  author:
+                    type: string
+                    example: ネコニキ
+                  title:
+                    type: string
+                    example: ReactNative@v0.63で追加されたPressableが地味にすごい
+                  body:
+                    type: string
+                    example: ReactNative@v0.63で追加されたPressableが地味にすごい
+                  link:
+                    type: string
+                    example: https://zenn.dev/nekoniki/articles/ef304778ada8a6
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: "string"
+                    example: "NOT_FOUND"
+                  message:
+                    type: "string"
+                    example: "NOT_FOUND"
+  /tweet:
+    post:
+      summary:
+        ツイート作成
+      tags:
+        - Tweet
+      requestBody:
+        description: 新規ツイートを送信する。
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: ef304778ada8a6
+                author:
+                  type: string
+                  example: ネコニキ
+                title:
+                  type: string
+                  example: ReactNative@v0.63で追加されたPressableが地味にすごい
+                body:
+                  type: string
+                  example: ReactNative@v0.63で追加されたPressableが地味にすごい
+                link:
+                  type: string
+                  example: https://zenn.dev/nekoniki/articles/ef304778ada8a6
+      responses:
+        201:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  success:
+                    type: "string"
+                    example: "REGISTERED"
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: string
+                    example: BAD_REQUEST
+                  message:
+                    type: string
+                    example: "BAD_REQUEST"
+  /tweet/{id}:
     delete:
       summary:
-        指定した書籍の削除
+        指定したtweetの削除
       tags:
-        - Book
-      produces:
-        - application/x-www-form-urlencoded
-      consumes:
-        - application/text/plain
-      responses:
-        200:
-          description: 削除完了時のレスポンス
+        - Tweet
       parameters:
         - name: id
-          in: header
-          type: string
+          in: path
           required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  success:
+                    type: "string"
+                    example: "DELETED"
+        400:
+          description: "BadRequest"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: string
+                    example: BAD_REQUEST
+                  message:
+                    type: string
+                    example: "BAD_REQUEST"
+        403:
+          description: "Forbidden"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: string
+                    example: "FORBIDDEN"
+                  message:
+                    type: string
+                    example: "FORBIDDEN"
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: string
+                    example: "NOT_FOUND"
+                  message:
+                    type: string
+                    example: "NOT_FOUND"
