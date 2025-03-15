@@ -1,4 +1,4 @@
-FROM node
+FROM node:lts
 
 # 作業ディレクトリを設定
 WORKDIR /usr/src/app
