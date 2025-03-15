@@ -11,7 +11,7 @@ on:
       - 'apps/frontend/**'
 
 jobs:
-  ci:
+  quality-frontend:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -23,7 +23,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a
         with:
-          node-version: 22.14.0
+          node-version: '22.14.0'
           cache: 'pnpm'
 
       - name: Install dependencies
