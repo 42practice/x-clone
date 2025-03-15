@@ -9,15 +9,15 @@ services:
     ports:
       - "5173:5173"
     tty: true
-
-  # backend:
-  #   build:
-  #     context: ./backend
-  #     dockerfile: Dockerfile
-  #   volumes:
-  #     - ./backend/:usr/
-  #   ports:
-  #     - '8080:8080'
-  #   tty: true
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend/x-backend:/usr/src/app
+      - /usr/src/app/node_modules # ホスト側の node_modules を無視
+    ports:
+      - '3000:3000'
+    tty: true
 
 

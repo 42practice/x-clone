@@ -19,4 +19,4 @@ COPY x-clone ./
 EXPOSE 5173
 
 # Vite を起動（外部からアクセスできるように --host 0.0.0.0 を指定）
-# CMD ["pnpm", "run", "dev", "--", "--host", "0.0.0.0"]
+CMD ["pnpm","dev","--host"]
