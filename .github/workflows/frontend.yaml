@@ -26,10 +26,11 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a
         with:
-          node-version: '22.14.0'
+          node-version: '22.13.10'
           cache: 'pnpm'
 
       - name: Install dependencies
+        working-directory: apps/frontend
         run: pnpm install --frozen-lockfile
 
       - name: Lint with ESLint
