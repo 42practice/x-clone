@@ -1,23 +1,18 @@
 openapi: "3.0.3"
 
-# 基本情報
 info:
-  # バージョン表記
   version: 1.0.0
-  # タイトル
   title: Xclone-API
-  # 説明
   description: 練習用Xclone-API
-# ホスト練習
+
 servers:
-  - url: localhost:3000/
+  - url: http://localhost:3000
     description: "開発者用サーバー"
-# エンドポイント
+
 paths:
   /tweets:
     get:
-      summary:
-        全ツイート取得
+      summary: 全ツイート取得
       tags:
         - Tweet
       responses:
@@ -27,15 +22,12 @@ paths:
             application/json:
               schema:
                 type: "array"
-                example: [
-                  {
-                    id: ef304778ada8a6,
-                    author: ネコニキ,
-                    title: ReactNative@v0.63で追加されたPressableが地味にすごい,
-                    body: ReactNative@v0.63で追加されたPressableが地味にすごい,
-                    link: https://zenn.dev/nekoniki/articles/ef304778ada8a6
-                  }
-                ]
+                example:
+                  - id: "ef304778ada8a6"
+                    author: "ネコニキ"
+                    title: "ReactNative@v0.63で追加されたPressableが地味にすごい"
+                    body: "ReactNative@v0.63で追加されたPressableが地味にすごい"
+                    link: "https://zenn.dev/nekoniki/articles/ef304778ada8a6"
         404:
           description: "NotFound"
           content:
@@ -49,58 +41,8 @@ paths:
                   message:
                     type: "string"
                     example: "NOT_FOUND"
-  /tweets/{id}:
-    get:
-      summary:
-        指定したtweetの詳細を取得API
-      tags:
-        - Tweet
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        200:
-          description: success operation
-          content:
-            application/json:
-              schema:
-                type: "object"
-                properties:
-                  id:
-                    type: string
-                    example: ef304778ada8a6
-                  author:
-                    type: string
-                    example: ネコニキ
-                  title:
-                    type: string
-                    example: ReactNative@v0.63で追加されたPressableが地味にすごい
-                  body:
-                    type: string
-                    example: ReactNative@v0.63で追加されたPressableが地味にすごい
-                  link:
-                    type: string
-                    example: https://zenn.dev/nekoniki/articles/ef304778ada8a6
-        404:
-          description: "NotFound"
-          content:
-            application/json:
-              schema:
-                type: "object"
-                properties:
-                  status:
-                    type: "string"
-                    example: "NOT_FOUND"
-                  message:
-                    type: "string"
-                    example: "NOT_FOUND"
-  /tweet:
     post:
-      summary:
-        ツイート作成
+      summary: ツイート作成
       tags:
         - Tweet
       requestBody:
@@ -110,22 +52,28 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - id
+                - author
+                - title
+                - body
+                - link
               properties:
                 id:
                   type: string
-                  example: ef304778ada8a6
+                  example: "ef304778ada8a6"
                 author:
                   type: string
-                  example: ネコニキ
+                  example: "ネコニキ"
                 title:
                   type: string
-                  example: ReactNative@v0.63で追加されたPressableが地味にすごい
+                  example: "ReactNative@v0.63で追加されたPressableが地味にすごい"
                 body:
                   type: string
-                  example: ReactNative@v0.63で追加されたPressableが地味にすごい
+                  example: "ReactNative@v0.63で追加されたPressableが地味にすごい"
                 link:
                   type: string
-                  example: https://zenn.dev/nekoniki/articles/ef304778ada8a6
+                  example: "https://zenn.dev/nekoniki/articles/ef304778ada8a6"
       responses:
         201:
           description: "Success"
@@ -150,10 +98,56 @@ paths:
                   message:
                     type: string
                     example: "BAD_REQUEST"
-  /tweet/{id}:
+
+  /tweets/{id}:
+    get:
+      summary: 指定したtweetの詳細を取得API
+      tags:
+        - Tweet
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: success operation
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  id:
+                    type: string
+                    example: "ef304778ada8a6"
+                  author:
+                    type: string
+                    example: "ネコニキ"
+                  title:
+                    type: string
+                    example: "ReactNative@v0.63で追加されたPressableが地味にすごい"
+                  body:
+                    type: string
+                    example: "ReactNative@v0.63で追加されたPressableが地味にすごい"
+                  link:
+                    type: string
+                    example: "https://zenn.dev/nekoniki/articles/ef304778ada8a6"
+        404:
+          description: "NotFound"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  status:
+                    type: "string"
+                    example: "NOT_FOUND"
+                  message:
+                    type: "string"
+                    example: "NOT_FOUND"
     delete:
-      summary:
-        指定したtweetの削除
+      summary: 指定したtweetの削除
       tags:
         - Tweet
       parameters:
@@ -207,8 +201,8 @@ paths:
                 type: "object"
                 properties:
                   status:
-                    type: string
+                    type: "string"
                     example: "NOT_FOUND"
                   message:
-                    type: string
+                    type: "string"
                     example: "NOT_FOUND"
