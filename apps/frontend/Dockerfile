@@ -7,10 +7,10 @@ WORKDIR /usr/src/app
 RUN npm install -g pnpm
 
 # package.json と lock ファイルを先にコピー（キャッシュ最適化）
-COPY ./package.json ./
+COPY ./package.json ./pnpm-lock.yaml ./
 
 # 依存関係をインストール
-RUN pnpm install
+RUN pnpm install --frozen-lockfile
 
 # 残りのソースコードをコピー
 COPY ./ ./
