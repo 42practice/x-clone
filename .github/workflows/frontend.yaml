@@ -13,6 +13,9 @@ on:
 jobs:
   quality-frontend:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/frontend
     steps:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
@@ -30,13 +33,10 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        working-directory: apps/frontend
         run: pnpm install --frozen-lockfile
 
       - name: Lint with ESLint
-        working-directory: apps/frontend
         run: pnpm run eslint
 
       - name: format with Prettier
-        working-directory: apps/frontend
         run: pnpm run format
