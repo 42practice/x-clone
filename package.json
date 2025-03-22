@@ -1,0 +1,55 @@
+{
+  "name": "x-clone-monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "eslint": "^9.22.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "prettier": "^3.5.3",
+    "typescript-eslint": "^8.26.1",
+    "@eslint/js": "^9.21.0"
+  },
+  "packageManager": "pnpm@10.6.1+sha512.40ee09af407fa9fbb5fbfb8e1cb40fbb74c0af0c3e10e9224d7b53c7658528615b2c92450e74cfad91e3a2dcafe3ce4050d80bda71d757756d2ce2b66213e9a3",
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 4,
+    "semi": true,
+    "singleQuote": false,
+    "plugins": ["prettier-plugin-tailwindcss"]
+  },
+  "eslintConfig": {
+    "ignorePatterns": [
+      "dist",
+      "node_modules"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended",
+      "prettier"
+    ],
+    "overrides": [
+      {
+        "parserOptions": {
+          "ecmaVersion": 2022,
+          "sourceType": "module"
+        },
+        "plugins": [
+          "prettier"
+        ],
+        "rules": {
+          "prettier/prettier": "error",
+          "@typescript-eslint/no-unused-vars": [
+            "warn",
+            { "argsIgnorePattern": "^_" }
+          ],
+          "no-console": "warn",
+          "no-unused-vars": "off"
+        }
+      }        
+    ]
+  }
+}
