@@ -6,8 +6,6 @@ import users from './routes/users/index.js'
 
 const app = new Hono()
 
-
-
 app.get('/', (c) => {return c.text('Hello Hono!')})
 
 app.route('/tweets', tweets)
