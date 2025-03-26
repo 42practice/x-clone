@@ -5,7 +5,8 @@ services:
       dockerfile: DockerFile
       target: frontend
     volumes:
-      - ./apps/frontend:/dev/app/packages/frontend
+      - ./apps/frontend:/app/packages/frontend
+      - /app/packages/frontend/node_modules # ホスト側の node_modules を無視
     ports:
       - "5173:5173"
     tty: true
@@ -15,7 +16,8 @@ services:
       dockerfile: DockerFile
       target: backend
     volumes:
-      - ./apps/backend:/dev/app/packages/backend
+      - ./apps/backend:/app/packages/backend
+      - /app/packages/backend/node_modules # ホスト側の node_modules を無視
     ports:
       - '3000:3000'
     tty: true
