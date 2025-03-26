@@ -1,0 +1,30 @@
+FROM node:lts AS base
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable && corepack use pnpm@10.6.5
+WORKDIR /app
+
+FROM base AS build
+COPY . .
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+COPY . .
+RUN pnpm run -r build
+# 1. Root store に依存しない node_modules を作成する
+RUN pnpm --filter frontend deploy deploy/frontend
+RUN pnpm --filter backend deploy deploy/backend
+
+# 本番
+# 2. ベースイメージは base なので不要なファイルが含まれていない
+FROM base AS frontend
+COPY --from=build /app/deploy/frontend/ /app/packages/frontend
+WORKDIR /app/packages/frontend
+RUN pnpm i
+EXPOSE 5173
+CMD ["pnpm","dev","--host"]
+
+FROM base AS backend
+COPY --from=build /app/deploy/backend/ /app/packages/backend
+WORKDIR /app/packages/backend
+RUN pnpm i
+EXPOSE 3000
+CMD ["pnpm","dev","--host"]

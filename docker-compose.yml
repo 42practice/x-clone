@@ -1,20 +1,21 @@
 services:
   frontend:
     build:
-      context: ./apps/frontend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: DockerFile
+      target: frontend
     volumes:
-      - ./apps/frontend:/usr/src/app
+      - ./apps/frontend:/dev/app/packages/frontend
     ports:
       - "5173:5173"
     tty: true
   backend:
     build:
-      context: ./apps/backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: DockerFile
+      target: backend
     volumes:
-      - ./apps/backend:/usr/src/app
-      - /usr/src/app/node_modules # ホスト側の node_modules を無視
+      - ./apps/backend:/dev/app/packages/backend
     ports:
       - '3000:3000'
     tty: true
