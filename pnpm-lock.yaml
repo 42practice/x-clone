@@ -3,16 +3,17 @@ lockfileVersion: '9.0'
 settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
+  injectWorkspacePackages: true
 
 importers:
 
   .:
     devDependencies:
       '@eslint/js':
-        specifier: ^9.21.0
+        specifier: ^9.23.0
         version: 9.23.0
       eslint:
-        specifier: ^9.22.0
+        specifier: ^9.23.0
         version: 9.23.0(jiti@2.4.2)
       eslint-plugin-prettier:
         specifier: ^5.2.3
@@ -21,7 +22,7 @@ importers:
         specifier: ^3.5.3
         version: 3.5.3
       typescript-eslint:
-        specifier: ^8.26.1
+        specifier: ^8.27.0
         version: 8.27.0(eslint@9.23.0(jiti@2.4.2))(typescript@5.7.3)
 
   apps/backend:
